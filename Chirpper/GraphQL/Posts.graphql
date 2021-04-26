@@ -1,0 +1,61 @@
+query getNPosts($count: Int!) {
+  Chirpper_Posts(order_by: {created_at: desc}, limit: $count) {
+	author
+	deleted
+	created_at
+	id
+	points
+	title
+	url
+	Comments_aggregate {
+	  aggregate {
+		count
+	  }
+	}
+  }
+}
+
+query getPost($id: uuid!) {
+  Chirpper_Posts(where: {id: {_eq: $id}}) {
+	author
+	deleted
+	created_at
+	id
+	message
+	points
+	title
+	url
+	Comments(order_by: {created_at: asc}) {
+	  id
+	  Replies {
+		reply_id
+	  }
+	}
+  }
+}
+
+mutation downVotePost($id: uuid!) {
+  update_Chirpper_Posts(where: {id: {_eq: $id}}, _inc: {points: -1}) {
+	returning {
+	  id
+	  points
+	}
+  }
+}
+
+mutation upVotePost($id: uuid!) {
+  update_Chirpper_Posts(where: {id: {_eq: $id}}, _inc: {points: 1}) {
+	returning {
+	  id
+	  points
+	}
+  }
+}
+
+mutation createPost($post: Chirpper_Posts_insert_input!) {
+  insert_Chirpper_Posts(objects: [$post]) {
+	returning {
+	  id
+	}
+  }
+}

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" id="KGk-i7-Jjw" customClass="CommentCell" customModule="Chirpper" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="198"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="198"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="625-S1-he1" userLabel="Message">
+                        <rect key="frame" x="16" y="30" width="382" height="139"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nzf-go-eZj">
+                        <rect key="frame" x="16" y="0.0" width="55" height="22"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XG4-b2-5py" userLabel="Footer View">
+                        <rect key="frame" x="0.0" y="173" width="414" height="25"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Fpo-6s-16y" userLabel="Down Vote">
+                                <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="chevron.down" catalog="system"/>
+                                <connections>
+                                    <action selector="downVote:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tVh-6N-zZV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="sFJ-8w-bob" userLabel="Up Vote">
+                                <rect key="frame" x="122" y="0.0" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="chevron.up" catalog="system"/>
+                                <connections>
+                                    <action selector="upVote:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="2OS-S5-MAb"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Points" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6e8-ST-fII" userLabel="Points">
+                                <rect key="frame" x="31" y="0.0" width="83" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9Le-IY-IwW" userLabel="Reply">
+                                <rect key="frame" x="319" y="-7" width="75" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title=" Reply " image="arrowshape.turn.up.left" catalog="system">
+                                    <color key="titleColor" systemColor="systemBlueColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="replyToThisComment:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Fb1-lu-DLm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reply to: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAt-OV-xfA" userLabel="Replied to:">
+                        <rect key="frame" x="343" y="0.0" width="71" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="XG4-b2-5py" secondAttribute="bottom" id="1gg-R7-xg0"/>
+                    <constraint firstItem="Nzf-go-eZj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="3FB-vN-Aj4"/>
+                    <constraint firstItem="XG4-b2-5py" firstAttribute="top" secondItem="625-S1-he1" secondAttribute="bottom" constant="4" id="7kc-XH-Xpb"/>
+                    <constraint firstAttribute="trailing" secondItem="NAt-OV-xfA" secondAttribute="trailing" id="LJe-7V-Blb"/>
+                    <constraint firstAttribute="trailing" secondItem="625-S1-he1" secondAttribute="trailing" constant="16" id="Mr5-4N-4nl"/>
+                    <constraint firstAttribute="trailing" secondItem="XG4-b2-5py" secondAttribute="trailing" id="Mzw-yQ-zek"/>
+                    <constraint firstItem="XG4-b2-5py" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="T7N-ej-rO2"/>
+                    <constraint firstAttribute="bottom" secondItem="625-S1-he1" secondAttribute="bottom" constant="29" id="XPS-bF-5Fw"/>
+                    <constraint firstItem="NAt-OV-xfA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="a6t-YM-czH"/>
+                    <constraint firstItem="625-S1-he1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="laR-Zy-D81"/>
+                    <constraint firstItem="625-S1-he1" firstAttribute="top" secondItem="Nzf-go-eZj" secondAttribute="bottom" constant="8" id="qq1-Uz-x1q"/>
+                    <constraint firstItem="625-S1-he1" firstAttribute="top" secondItem="NAt-OV-xfA" secondAttribute="bottom" constant="9" id="wOx-el-KgA"/>
+                    <constraint firstItem="625-S1-he1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="xIq-OA-7Ch"/>
+                    <constraint firstItem="Nzf-go-eZj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="xn9-d2-kQS"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="author" destination="Nzf-go-eZj" id="OPA-BD-3zd"/>
+                <outlet property="message" destination="625-S1-he1" id="fDz-dc-MYu"/>
+                <outlet property="points" destination="6e8-ST-fII" id="ZtS-0X-X9g"/>
+                <outlet property="repliedTo" destination="NAt-OV-xfA" id="zKj-cp-BFN"/>
+            </connections>
+            <point key="canvasLocation" x="-7.2463768115942031" y="118.52678571428571"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arrowshape.turn.up.left" catalog="system" width="128" height="106"/>
+        <image name="chevron.down" catalog="system" width="128" height="72"/>
+        <image name="chevron.up" catalog="system" width="128" height="72"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

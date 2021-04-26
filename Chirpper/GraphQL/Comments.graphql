@@ -1,0 +1,52 @@
+query getComment($id: uuid!) {
+  Chirpper_Comments(where: {id: {_eq: $id}}) {
+	id
+	author
+	created_at
+	deleted
+	message
+	points
+	post_id
+	Replies {
+	  reply_id
+	}
+	replyParent {
+	  parent_id
+	}
+  }
+}
+
+mutation downVoteComment($id: uuid!) {
+  update_Chirpper_Comments(where: {id: {_eq: $id}}, _inc: {points: -1}) {
+    returning {
+      id
+      points
+    }
+  }
+}
+
+mutation upVoteComment($id: uuid!) {
+  update_Chirpper_Comments(where: {id: {_eq: $id}}, _inc: {points: 1}) {
+    returning {
+      id
+      points
+    }
+  }
+}
+
+mutation createComment($comment: Chirpper_Comments_insert_input!) {
+  insert_Chirpper_Comments(objects: [$comment]) {
+    returning {
+      author
+      created_at
+      deleted
+      id
+      message
+      points
+      post_id
+      replyParent {
+        parent_id
+      }
+    }
+  }
+}
