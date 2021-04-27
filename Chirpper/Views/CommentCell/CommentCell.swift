@@ -10,6 +10,7 @@ import UIKit
 class CommentCell: UITableViewCell {
 
     var commentId: String = ""
+    var cellRow: IndexPath!
     
     var parentController: CommentInsertionDelegator!
     
@@ -19,7 +20,7 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var points: UILabel!
     
     @IBAction func replyToThisComment(_ sender: Any) {
-        parentController.insertReply(commentId: self.commentId)
+        self.parentController.insertReply(commentId: self.commentId)
     }
     
     @IBAction func downVote(_ sender: Any) {
@@ -63,25 +64,38 @@ class CommentCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func populateCell(commentId: String) {
+    func populateCell(commentId: String, row: IndexPath) {
         HasuraNetwork.shared.apollo.fetch(query: GetCommentQuery(id: commentId)) { result in
             guard let data = try? result.get().data else {
                 return
             }
             let comment = data.chirpperComments.first!
             
-            self.commentId = comment.id
-            self.author.text = "By: " + comment.author
-            self.message.text = comment.message
-            self.points.text = comment.points
+            self.populateCell(comment: comment, row: row)
+            
+            if comment.replyParent.count > 0 {
+                let parentId = comment.replyParent.first!.parentId
+                HasuraNetwork.shared.apollo.fetch(query: GetCommentQuery(id: parentId)) {result in
+                    guard let data = try? result.get().data else {
+                        return
+                    }
+                    let parentAuthor = data.chirpperComments.first!.author
+                    
+                    self.repliedTo.text = "Replying to: \(parentAuthor)"
+                    self.parentController.refreshCell(cellRow: self.cellRow)
+                }
+            } else {
+                self.repliedTo.text = "Replying to: <OP>"
+            }
         }
     }
     
-    func populateCell(comment: GetCommentQuery.Data.ChirpperComment) {
+    func populateCell(comment: GetCommentQuery.Data.ChirpperComment, row: IndexPath) {
         self.commentId = comment.id
         self.author.text = "By: " + comment.author
         self.message.text = comment.message
         self.points.text = comment.points
+        self.cellRow = row
     }
     
     private func getParentAuthor(parentId: String) -> String {

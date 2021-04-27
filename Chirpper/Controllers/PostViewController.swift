@@ -48,17 +48,16 @@ class PostViewController: UIViewController, CommentInsertionDelegator {
         self.performSegue(withIdentifier: Constants.goToCommentReplySegueIdentifier, sender: segueObject)
     }
     
+    func refreshCell(cellRow: IndexPath) {
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+    
     func getPost() {
-        HasuraNetwork.shared.apollo.fetch(query: GetPostQuery(id: postId)) { result in
+        HasuraNetwork.shared.apollo.fetch(query: GetPostQuery(id: postId), cachePolicy: .fetchIgnoringCacheData) { result in
             switch result {
             case .success(let postQLResult):
-                //            print("Success! Result: \(graphQLResult)")
-                print()
-                print(postQLResult)
-                print()
                 self.post = postQLResult.data?.chirpperPosts.first
-                print(self.post!)
-                print(self.post!.comments)
                 self.tableView.reloadData()
             case .failure(let error):
                 print("Failure! Error: \(error)")
@@ -107,7 +106,7 @@ extension PostViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.commentCellIdentifier, for: indexPath) as! CommentCell
     //        let post = posts[indexPath.row]
             let commentId = self.post!.comments[indexPath.row - 1].id
-            cell.populateCell(commentId: commentId)
+            cell.populateCell(commentId: commentId, row: indexPath)
             cell.parentController = self
             return cell
         }
@@ -117,7 +116,6 @@ extension PostViewController: UITableViewDataSource {
 
 extension PostViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -143,5 +141,7 @@ protocol CommentInsertionDelegator {
     func insertComment()
     
     func insertReply(commentId: String)
+
+    func refreshCell(cellRow: IndexPath)
     
 }

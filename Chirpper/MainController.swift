@@ -38,16 +38,14 @@ class MainController: UIViewController, TableViewCellDelegator {
         tableView.dataSource = self
         
         tableView.register(UINib(nibName: Constants.postPreviewCellIdentifier, bundle: nil), forCellReuseIdentifier: Constants.postPreviewCellIdentifier)
-        
-        HasuraNetwork.shared.apollo.fetch(query: GetNPostsQuery(count:10)) { result in
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        HasuraNetwork.shared.apollo.fetch(query: GetNPostsQuery(count:10), cachePolicy: .fetchIgnoringCacheData) { result in
             switch result {
             case .success(let postQLResult):
                 //            print("Success! Result: \(graphQLResult)")
-                print()
-                print(postQLResult)
-                print()
                 self.posts = postQLResult.data!.chirpperPosts
-                print(self.posts[0])
                 self.tableView.reloadData()
             case .failure(let error):
                 print("Failure! Error: \(error)")
